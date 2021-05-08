@@ -24,6 +24,8 @@ const Atendimento = Tabela.sequelize.define('atendimentos',{
     }
 })
 
+
+
 const Empresa = Tabela.sequelize.define('empresas',{
         CNPJ: {
             type: Tabela.Sequelize.STRING
@@ -44,9 +46,19 @@ const Empresa = Tabela.sequelize.define('empresas',{
             type: Tabela.Sequelize.STRING
         }
     })
+    
+
+
 
     const Funcionario = Tabela.sequelize.define('funcionarios',{
         NomeFuncionario: {
             type: Tabela.Sequelize.STRING
         }
     })
+
+
+module.exports = {
+    Atendimento: Atendimento,
+    Empresa: Empresa,
+    Funcionario: Funcionario
+}
