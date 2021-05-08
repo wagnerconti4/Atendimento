@@ -15,17 +15,20 @@
 
 
 //Rotas
+
+    //Principal
+
     Servidor.get('/',(req,res)=>{
         res.send("Olá")
     })
 
+    //Rota de cadastro de Atendimento
 
-    Servidor.get('/Cadastro_Atendimento',(req,res)=>{
+    Servidor.get('/Cadastro_Atendimento',(req, res)=>{
         res.render('CadastroAtendimento')
     })
 
-
-    Servidor.post('/AtendimentoRealizado',(req,res)=>{
+    Servidor.post('/AtendimentoRealizado',(req, res)=>{
         TabelasBanco.Atendimento.create({
             NomeCliente: req.body.NomeCliente,
             NomeEmpresa: req.body.EmpresaCliente,
@@ -39,6 +42,13 @@
             res.send("Ocorreu um erro durante o cadastro..." + erro)
         })
     })
+
+
+    //Rota de cadastro de Empresa
+    Servidor.get('/Cadastro_Empresa',(req, res)=>{
+        res.render('CadastroEmpresa')
+    })
+    
 
     
 
