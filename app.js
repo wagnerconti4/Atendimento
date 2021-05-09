@@ -37,7 +37,9 @@
             EnderecoClienteNumero: req.body.NumeroCliente,
             EnderecoClienteComplemento: req.body.ComplementoCliente
         }).then(()=>{
+
             res.send("Atendimento cadastrado com sucesso")
+
         }).catch((erro)=>{
             res.send("Ocorreu um erro durante o cadastro..." + erro)
         })
@@ -58,7 +60,9 @@
             EnderecoEmpresaComplemento: req.body.EnderecoEmpresaComplemento,
             TelefoneEmpresa: req.body.TelefoneEmpresa
         }).then(()=>{
+
             res.send("Empresa cadastrada com sucesso")
+            
         }).catch((erro)=>{
             res.send("Ocorreu um erro durante o cadastro..." + erro)
         })
