@@ -28,7 +28,7 @@
         res.render('CadastroAtendimento')
     })
 
-    Servidor.post('/AtendimentoRealizado',(req, res)=>{
+    Servidor.post('/AtendimentoCadastro',(req, res)=>{
         TabelasBanco.Atendimento.create({
             NomeCliente: req.body.NomeCliente,
             NomeEmpresa: req.body.EmpresaCliente,
@@ -37,7 +37,7 @@
             EnderecoClienteNumero: req.body.NumeroCliente,
             EnderecoClienteComplemento: req.body.ComplementoCliente
         }).then(()=>{
-            res.send("Cadastrado com sucesso")
+            res.send("Atendimento cadastrado com sucesso")
         }).catch((erro)=>{
             res.send("Ocorreu um erro durante o cadastro..." + erro)
         })
@@ -47,6 +47,21 @@
     //Rota de cadastro de Empresa
     Servidor.get('/Cadastro_Empresa',(req, res)=>{
         res.render('CadastroEmpresa')
+    })
+
+    Servidor.post('/EmpresaCadastro',(req, res)=>{
+        TabelasBanco.Empresa.create({
+            CNPJ: req.body.CNPJEmpresa,
+            NomeEmpresa: req.body.NomeEmpresa,
+            EnderecoEmpresaRua: req.body.EnderecoEmpresaRua,
+            EnderecoEmpresaNumero: req.body.EnderecoEmpresaNumero,
+            EnderecoEmpresaComplemento: req.body.EnderecoEmpresaComplemento,
+            TelefoneEmpresa: req.body.TelefoneEmpresa
+        }).then(()=>{
+            res.send("Empresa cadastrada com sucesso")
+        }).catch((erro)=>{
+            res.send("Ocorreu um erro durante o cadastro..." + erro)
+        })
     })
     
 
