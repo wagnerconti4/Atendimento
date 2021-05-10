@@ -3,8 +3,9 @@
     const Express = require('express')
     const Servidor = Express()
     const ExpressHadlebars = require('express-handlebars')
-const tabelaBanco = require('./models/tabelaBanco')
     const TabelasBanco = require('./models/tabelaBanco')
+
+
 
 //Configuração do Handlebars
     Servidor.engine('handlebars',ExpressHadlebars({defaultLayout: 'main'}))
@@ -13,7 +14,7 @@ const tabelaBanco = require('./models/tabelaBanco')
 //Configuração do Bory Parser   
     Servidor.use(Express.urlencoded({extended: true}))
     Servidor.use(Express.json())
-
+    
 
 //Rotas
 
@@ -44,6 +45,15 @@ const tabelaBanco = require('./models/tabelaBanco')
         })
     })
 
+    //Rota de listagem de atendimento
+
+    Servidor.get('/Lista_Atendimento',(req,res)=>{
+        TabelasBanco.Atendimento.findAll().then((atendimentos)=>{
+            res.render('ListaAtendimento',{atendimentos: atendimentos})
+        })
+       
+    })
+
 
     //Rota de cadastro de Empresa
     Servidor.get('/Cadastro_Empresa',(req, res)=>{
@@ -72,7 +82,7 @@ const tabelaBanco = require('./models/tabelaBanco')
     })
 
     Servidor.post('/FuncionarioCadastro',(req, res)=>{
-        tabelaBanco.Funcionario.create({
+        tabelasBanco.Funcionario.create({
             NomeFuncionario: req.body.NomeFuncionario
         }).then(()=>{
             res.send("Funcionario cadastro com sucesso")
