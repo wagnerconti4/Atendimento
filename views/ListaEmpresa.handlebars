@@ -1,0 +1,10 @@
+<h1>Lista de empresas</h1>
+{{#each empresas}}
+    <p>CNPJ: {{dataValues.CNPJ}}</p>
+    <p>Nome: {{dataValues.NomeEmpresa}}</p>
+    <p>Logradouro: {{dataValues.EnderecoEmpresaRua}}</p>
+    <p>Número: {{dataValues.EnderecoEmpresaNumero}}</p>
+    <p>Complemento: {{dataValues.EnderecoEmpresaComplemento}}</p>
+    <p>Telefone: {{dataValues.TelefoneEmpresa}}</p>
+    <hr>
+{{/each}}

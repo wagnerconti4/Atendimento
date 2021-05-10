@@ -3,6 +3,7 @@
     const Express = require('express')
     const Servidor = Express()
     const ExpressHadlebars = require('express-handlebars')
+const { Funcionario } = require('./models/tabelaBanco')
     const TabelasBanco = require('./models/tabelaBanco')
 
 
@@ -56,6 +57,7 @@
 
 
     //Rota de cadastro de Empresa
+
     Servidor.get('/Cadastro_Empresa',(req, res)=>{
         res.render('CadastroEmpresa')
     })
@@ -74,15 +76,24 @@
             res.send("Ocorreu um erro durante o cadastro..." + erro)
         })
     })
+
+    //Rota de Listagem de Empresa
+
+    Servidor.get('/Lista_Empresa',(req, res)=>{
+        TabelasBanco.Empresa.findAll().then((empresas)=>{
+            res.render('ListaEmpresa',{empresas: empresas})
+        })
+    })
     
 
     //Rota de cadastro de Funcionário
+
     Servidor.get('/Cadastro_Funcionario',(req, res)=>{
         res.render('CadastroFuncionario')
     })
 
     Servidor.post('/FuncionarioCadastro',(req, res)=>{
-        tabelasBanco.Funcionario.create({
+        TabelasBanco.Funcionario.create({
             NomeFuncionario: req.body.NomeFuncionario
         }).then(()=>{
             res.send("Funcionario cadastro com sucesso")
@@ -90,6 +101,14 @@
             res.send("Ocorreu um erro durante o cadastro..." + erro)
         })
     })
+
+    //Rota de listagem de Funcionário
+    Servidor.get('/Lista_Funcionario',(req, res)=>{
+        TabelasBanco.Funcionario.findAll().then((funcionarios)=>{
+            res.render('ListaFuncionario', {funcionarios: funcionarios})
+        })
+    })
+
 
 //Conexão do servidor
     Servidor.listen(8080,(erro)=>{
