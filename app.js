@@ -3,6 +3,7 @@
     const Express = require('express')
     const Servidor = Express()
     const ExpressHadlebars = require('express-handlebars')
+const tabelaBanco = require('./models/tabelaBanco')
     const TabelasBanco = require('./models/tabelaBanco')
 
 //Configuração do Handlebars
@@ -65,7 +66,20 @@
     })
     
 
-    
+    //Rota de cadastro de Funcionário
+    Servidor.get('/Cadastro_Funcionario',(req, res)=>{
+        res.render('CadastroFuncionario')
+    })
+
+    Servidor.post('/FuncionarioCadastro',(req, res)=>{
+        tabelaBanco.Funcionario.create({
+            NomeFuncionario: req.body.NomeFuncionario
+        }).then(()=>{
+            res.send("Funcionario cadastro com sucesso")
+        }).catch((erro)=>{
+            res.send("Ocorreu um erro durante o cadastro..." + erro)
+        })
+    })
 
 //Conexão do servidor
     Servidor.listen(8080,(erro)=>{
