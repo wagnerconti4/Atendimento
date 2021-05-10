@@ -28,7 +28,10 @@ const { Funcionario } = require('./models/tabelaBanco')
     //Rota de cadastro de Atendimento
 
     Servidor.get('/Cadastro_Atendimento',(req, res)=>{
-        res.render('CadastroAtendimento')
+        TabelasBanco.Funcionario.findAll().then((funcionarios)=>{
+            res.render('CadastroAtendimento',{funcionarios: funcionarios})
+        })
+       
     })
 
     Servidor.post('/AtendimentoCadastro',(req, res)=>{
@@ -40,9 +43,7 @@ const { Funcionario } = require('./models/tabelaBanco')
             EnderecoClienteRua: req.body.EnderecoCliente,
             EnderecoClienteNumero: req.body.NumeroCliente,
             EnderecoClienteComplemento: req.body.ComplementoCliente,
-            Funcionario: TabelasBanco.findAll().then((funcionarios)=>{
-                res.render('CadastroAtendimento',{funcionarios: funcionarios})
-            })
+            Funcionario: req.body.Funcionario
         }).then(()=>{
             res.send("Atendimento cadastrado com sucesso")
         }).catch((erro)=>{
@@ -53,8 +54,18 @@ const { Funcionario } = require('./models/tabelaBanco')
     //Rota de listagem de atendimento
 
     Servidor.get('/Lista_Atendimento',(req,res)=>{
-        TabelasBanco.Atendimento.findAll().then((atendimentos)=>{
+        
+            TabelasBanco.Atendimento.findAll({
+                 include: [{
+                     model: Funcionario,
+                     as: 'funcionario',
+                     through: {atributes: []}
+                 }]
+    }).then((atendimentos)=>{
             res.render('ListaAtendimento',{atendimentos: atendimentos})
+           
+        }).catch((erro)=>{
+            console.log("Houve um erro..." + erro)
         })
        
     })
