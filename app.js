@@ -36,9 +36,13 @@ const { Funcionario } = require('./models/tabelaBanco')
             NomeCliente: req.body.NomeCliente,
             NomeEmpresa: req.body.EmpresaCliente,
             TelefoneCliente: req.body.TelefoneCliente,
+            ProblemaCliente: req.body.ProblemaCliente,
             EnderecoClienteRua: req.body.EnderecoCliente,
             EnderecoClienteNumero: req.body.NumeroCliente,
-            EnderecoClienteComplemento: req.body.ComplementoCliente
+            EnderecoClienteComplemento: req.body.ComplementoCliente,
+            Funcionario: TabelasBanco.findAll().then((funcionarios)=>{
+                res.render('CadastroAtendimento',{funcionarios: funcionarios})
+            })
         }).then(()=>{
             res.send("Atendimento cadastrado com sucesso")
         }).catch((erro)=>{
