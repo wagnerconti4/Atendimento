@@ -3,7 +3,6 @@
     const Express = require('express')
     const Servidor = Express()
     const ExpressHadlebars = require('express-handlebars')
-const { Funcionario } = require('./models/tabelaBanco')
     const TabelasBanco = require('./models/tabelaBanco')
 
 
@@ -28,7 +27,12 @@ const { Funcionario } = require('./models/tabelaBanco')
     //Rota de cadastro de Atendimento
 
     Servidor.get('/Cadastro_Atendimento',(req, res)=>{
-        res.render('CadastroAtendimento')
+        TabelasBanco.Funcionario.findAll().then((funcionarios)=>{
+            res.render('CadastroAtendimento',{funcionarios: funcionarios})
+        }).catch((erro)=>{
+            console.log('Ocorreu um erro...' + erro)
+        })
+       
     })
 
     Servidor.post('/AtendimentoCadastro',(req, res)=>{
@@ -36,9 +40,11 @@ const { Funcionario } = require('./models/tabelaBanco')
             NomeCliente: req.body.NomeCliente,
             NomeEmpresa: req.body.EmpresaCliente,
             TelefoneCliente: req.body.TelefoneCliente,
+            ProblemaCliente: req.body.ProblemaCliente,
             EnderecoClienteRua: req.body.EnderecoCliente,
             EnderecoClienteNumero: req.body.NumeroCliente,
-            EnderecoClienteComplemento: req.body.ComplementoCliente
+            EnderecoClienteComplemento: req.body.ComplementoCliente,
+            Funcionario: req.body.Funcionario
         }).then(()=>{
             res.send("Atendimento cadastrado com sucesso")
         }).catch((erro)=>{
@@ -49,8 +55,12 @@ const { Funcionario } = require('./models/tabelaBanco')
     //Rota de listagem de atendimento
 
     Servidor.get('/Lista_Atendimento',(req,res)=>{
-        TabelasBanco.Atendimento.findAll().then((atendimentos)=>{
+        
+            TabelasBanco.Atendimento.findAll().then((atendimentos)=>{
             res.render('ListaAtendimento',{atendimentos: atendimentos})
+           
+        }).catch((erro)=>{
+            console.log("Houve um erro..." + erro)
         })
        
     })

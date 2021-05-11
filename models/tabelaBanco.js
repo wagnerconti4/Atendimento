@@ -5,13 +5,20 @@ const Atendimento = Tabela.sequelize.define('atendimentos',{
         type: Tabela.Sequelize.BOOLEAN
     },
     NomeCliente: {
-        type: Tabela.Sequelize.STRING
+        type: Tabela.Sequelize.STRING,
+        allowNull: false
     },
     NomeEmpresa: {
-        type: Tabela.Sequelize.STRING
+        type: Tabela.Sequelize.STRING,
+        allowNull: false
     },
     TelefoneCliente: {
-        type: Tabela.Sequelize.STRING
+        type: Tabela.Sequelize.STRING,
+        allowNull: false
+    },
+    ProblemaCliente: {
+        type: Tabela.Sequelize.TEXT,
+        allowNull: false
     },
     EnderecoClienteRua: {
         type: Tabela.Sequelize.TEXT
@@ -21,6 +28,10 @@ const Atendimento = Tabela.sequelize.define('atendimentos',{
     },
     EnderecoClienteComplemento:{
         type: Tabela.Sequelize.TEXT
+    },
+    Funcionario: {
+        type: Tabela.Sequelize.STRING,
+        allowNull: false
     }
 })
 
@@ -48,13 +59,12 @@ const Empresa = Tabela.sequelize.define('empresas',{
     })
     
 
-
-
     const Funcionario = Tabela.sequelize.define('funcionarios',{
         NomeFuncionario: {
             type: Tabela.Sequelize.STRING
         }
     })
+
 
 
 module.exports = {

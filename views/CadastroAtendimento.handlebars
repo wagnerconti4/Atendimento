@@ -3,19 +3,35 @@
 
 <p>Nome</p>
 <input type="text" name="NomeCliente">
+
 <p>Empresa</p>
 <input type="text" name="EmpresaCliente">
+
 <p>Telefone</p>
 <input type="text" name="TelefoneCliente">
+
+<p>Problema</p>
+<textarea name="ProblemaCliente"></textarea>
 
 <h3>Endereço</h3>
 
 <p>Endereço</p>
 <input type="text" name="EnderecoCliente">
+
 <p>Número</p>
 <input type="text" name="NumeroCliente">
+
 <p>Complemento</p>
 <textarea name="ComplementoCliente"></textarea>
+
+<p>Funcionário</p>
+<select name="Funcionario">
+
+{{#each funcionarios}}
+    <option>{{dataValues.NomeFuncionario}}</option>
+{{/each}}
+
+</select>
 <button type="submit">Cadastrar atendimento</button>
 </form>
 
