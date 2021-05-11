@@ -1,5 +1,4 @@
 //Importação dos modulos
-    const bodyParser = require('body-parser')
     const Express = require('express')
     const Servidor = Express()
     const ExpressHadlebars = require('express-handlebars')
@@ -27,7 +26,9 @@
     //Rota de cadastro de Atendimento
 
     Servidor.get('/Cadastro_Atendimento',(req, res)=>{
-        TabelasBanco.Funcionario.findAll().then((funcionarios)=>{
+        TabelasBanco.Funcionario.findAll({
+            attributes: ['id']
+        }).then((funcionarios)=>{
             res.render('CadastroAtendimento',{funcionarios: funcionarios})
         }).catch((erro)=>{
             console.log('Ocorreu um erro...' + erro)
@@ -57,8 +58,15 @@
 
     Servidor.get('/Lista_Atendimento',(req,res)=>{
         
-            TabelasBanco.Atendimento.findAll().then((atendimentos)=>{
-            res.render('ListaAtendimento',{atendimentos: atendimentos})
+            TabelasBanco.Atendimento.findAll({
+                attributes: ['id','NomeCliente'],
+               include: [
+                    {  model: TabelasBanco.Funcionario,
+                        attributes: ['id']
+                    }],
+
+            }).then((atendimentos,funcionarios)=>{
+            res.render('ListaAtendimento',{atendimentos: atendimentos,funcionarios:funcionarios})
            
         }).catch((erro)=>{
             console.log("Houve um erro..." + erro)
