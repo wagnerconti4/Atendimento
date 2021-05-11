@@ -3,7 +3,6 @@
     const Express = require('express')
     const Servidor = Express()
     const ExpressHadlebars = require('express-handlebars')
-const { Funcionario } = require('./models/tabelaBanco')
     const TabelasBanco = require('./models/tabelaBanco')
 
 
@@ -30,6 +29,8 @@ const { Funcionario } = require('./models/tabelaBanco')
     Servidor.get('/Cadastro_Atendimento',(req, res)=>{
         TabelasBanco.Funcionario.findAll().then((funcionarios)=>{
             res.render('CadastroAtendimento',{funcionarios: funcionarios})
+        }).catch((erro)=>{
+            console.log('Ocorreu um erro...' + erro)
         })
        
     })
