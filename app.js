@@ -44,7 +44,8 @@
             EnderecoClienteRua: req.body.EnderecoCliente,
             EnderecoClienteNumero: req.body.NumeroCliente,
             EnderecoClienteComplemento: req.body.ComplementoCliente,
-            Funcionario: req.body.Funcionario
+            Funcionario: req.body.Funcionario,
+            Status: req.body.Radio
         }).then(()=>{
             res.send("Atendimento cadastrado com sucesso")
         }).catch((erro)=>{

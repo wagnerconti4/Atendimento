@@ -2,7 +2,7 @@ const Tabela = require('./conexaoBancoDados')
 
 const Atendimento = Tabela.sequelize.define('atendimentos',{
     Status: {
-        type: Tabela.Sequelize.BOOLEAN
+        type: Tabela.Sequelize.STRING
     },
     NomeCliente: {
         type: Tabela.Sequelize.STRING,
@@ -57,6 +57,7 @@ const Empresa = Tabela.sequelize.define('empresas',{
             type: Tabela.Sequelize.STRING
         }
     })
+   
     
 
     const Funcionario = Tabela.sequelize.define('funcionarios',{
