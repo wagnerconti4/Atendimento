@@ -30,6 +30,8 @@ const { Funcionario } = require('./models/tabelaBanco')
     Servidor.get('/Cadastro_Atendimento',(req, res)=>{
         TabelasBanco.Funcionario.findAll().then((funcionarios)=>{
             res.render('CadastroAtendimento',{funcionarios: funcionarios})
+        }).catch((erro)=>{
+            console.log('Ocorreu um erro...' + erro)
         })
        
     })
@@ -55,13 +57,7 @@ const { Funcionario } = require('./models/tabelaBanco')
 
     Servidor.get('/Lista_Atendimento',(req,res)=>{
         
-            TabelasBanco.Atendimento.findAll({
-                 include: [{
-                     model: Funcionario,
-                     as: 'funcionario',
-                     through: {atributes: []}
-                 }]
-    }).then((atendimentos)=>{
+            TabelasBanco.Atendimento.findAll().then((atendimentos)=>{
             res.render('ListaAtendimento',{atendimentos: atendimentos})
            
         }).catch((erro)=>{
