@@ -30,10 +30,8 @@ const Atendimento = Tabela.sequelize.define('atendimentos',{
         type: Tabela.Sequelize.TEXT
     },
     Funcionario: {
-        type: Tabela.Sequelize.INTEGER,
-        references: {model: 'funcionarios', key: 'id'},
-        allowNull: false,
-        onUpdate: 'CASCADE'
+        type: Tabela.Sequelize.STRING,
+        allowNull: false
     }
 })
 
@@ -61,37 +59,11 @@ const Empresa = Tabela.sequelize.define('empresas',{
     })
     
 
-   
-
-
     const Funcionario = Tabela.sequelize.define('funcionarios',{
         NomeFuncionario: {
             type: Tabela.Sequelize.STRING
         }
     })
-
-    const AtendimentoFuncionario = Tabela.sequelize.define('atendimentofuncionarios',{
-        IdAtendimento:{
-            type: Tabela.Sequelize.INTEGER,
-            references:{
-                model: Atendimento,
-                key: 'id'
-            }
-        },
-        IdFuncionario:{
-            type: Tabela.Sequelize.INTEGER,
-            references:{
-                model:Funcionario,
-                key:'key'
-            }
-        }
-    })
-
-    AtendimentoFuncionario.sync({force:true})
-
-    Atendimento.belongsToMany(Funcionario,{through: "atendimentoFuncionarios", as: "funcionario", foreignKey: 'id'})
-    Funcionario.belongsToMany(Atendimento,{through: "atendimentoFuncionarios", as: "atendimento", foreignKey: 'id'})
-
 
 module.exports = {
     Atendimento: Atendimento,
