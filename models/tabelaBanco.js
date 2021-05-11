@@ -65,6 +65,8 @@ const Empresa = Tabela.sequelize.define('empresas',{
         }
     })
 
+
+    
 module.exports = {
     Atendimento: Atendimento,
     Empresa: Empresa,
