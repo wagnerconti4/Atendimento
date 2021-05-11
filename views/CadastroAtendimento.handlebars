@@ -30,8 +30,15 @@
 {{#each funcionarios}}
     <option>{{dataValues.NomeFuncionario}}</option>
 {{/each}}
-
 </select>
+
+<p>Status</p>
+<input type="radio" id="Finalizado" name="Radio" value="Finalizado">Finalizado <br>
+
+<input type="radio" id="Pendente" name="Radio" value="Pendente">Pendente <br>
+
+<input type="radio" id="Agendado" name="Radio" value="Agendado"> Agendado <br>
+
 <button type="submit">Cadastrar atendimento</button>
 </form>
 
