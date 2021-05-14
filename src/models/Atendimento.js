@@ -15,6 +15,9 @@ class Atendimento extends Model {
             sequelize: connection
         })
     }
+    static relacionamento(models){
+        Atendimento.belongsToMany(models.Funcionario,{through: 'atendimentos_funcionarios', foreignKey:'atendimento_id',  as: 'funcionarios'})
+    }
 }
 
 module.exports = Atendimento
