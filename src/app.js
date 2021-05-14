@@ -1,10 +1,13 @@
 //Importação dos modulos
     const Express = require('express')
+
+    require('./database/conexaoBancoDados')
     const Servidor = Express()
     const ExpressHadlebars = require('express-handlebars')
     const TabelasBanco = require('./models/tabelaBanco')
-
-
+    const routes = require('./rotas')
+    Servidor.use(Express.json())
+    Servidor.use(routes)
 
 //Configuração do Handlebars
     Servidor.engine('handlebars',ExpressHadlebars({defaultLayout: 'main'}))
@@ -19,9 +22,7 @@
 
     //Principal
 
-    Servidor.get('/',(req,res)=>{
-        res.send("Olá")
-    })
+   
 
     //Rota de cadastro de Atendimento
 
@@ -57,19 +58,19 @@
     //Rota de listagem de atendimento
 
     Servidor.get('/Lista_Atendimento',(req,res)=>{
-        
+            
             TabelasBanco.Atendimento.findAll({
-                attributes: ['id','NomeCliente'],
-               include: [
-                    {  model: TabelasBanco.Funcionario,
-                        attributes: ['id']
-                    }],
-
-            }).then((atendimentos,funcionarios)=>{
-            res.render('ListaAtendimento',{atendimentos: atendimentos,funcionarios:funcionarios})
+            include:[
+               { model: TabelasBanco.Funcionario,
+                attributes: ['id', 'NomeFuncionario'],
+                through:{ attributes: []}
+               }]
+ 
+            }).then((atendimentos)=>{
+            res.render('ListaAtendimento',{atendimentos: atendimentos})
            
         }).catch((erro)=>{
-            console.log("Houve um erro..." + erro)
+            console.log("Houve um erro....................." + erro)
         })
        
     })
