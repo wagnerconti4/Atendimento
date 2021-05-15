@@ -1,36 +1,28 @@
-<form action="/AtendimentoCadastro" method="POST">
+<form action="/cadastro_atendimento" method="POST">
 <h3>Cliente</h3>
 
 <p>Nome</p>
-<input type="text" name="NomeCliente">
+<input type="text" name="nome_cliente">
 
 <p>Empresa</p>
-<input type="text" name="EmpresaCliente">
+<input type="text" name="nome_empresa">
 
 <p>Telefone</p>
-<input type="text" name="TelefoneCliente">
+<input type="text" name="telefone_cliente">
 
 <p>Problema</p>
-<textarea name="ProblemaCliente"></textarea>
+<textarea name="problema_cliente"></textarea>
 
 <h3>Endereço</h3>
 
 <p>Endereço</p>
-<input type="text" name="EnderecoCliente">
+<input type="text" name="endereco_cliente_rua">
 
 <p>Número</p>
-<input type="text" name="NumeroCliente">
+<input type="text" name="endereco_cliente_numero">
 
 <p>Complemento</p>
-<textarea name="ComplementoCliente"></textarea>
-
-<p>Funcionário</p>
-<select name="Funcionario">
-
-{{#each funcionarios}}
-    <option>{{dataValues.id}}</option>
-{{/each}}
-</select>
+<textarea name="endereco_cliente_complemento"></textarea>
 
 <p>Status</p>
 <input type="radio" id="Finalizado" name="Radio" value="Finalizado">Finalizado <br>
@@ -38,6 +30,16 @@
 <input type="radio" id="Pendente" name="Radio" value="Pendente">Pendente <br>
 
 <input type="radio" id="Agendado" name="Radio" value="Agendado"> Agendado <br>
+
+<p>Funcionário</p>
+<select name="funcionarios">
+
+{{#each funcionarios}}
+    <option>{{dataValues.nome_funcionario}}</option>
+{{/each}}
+</select>
+
+
 
 <button type="submit">Cadastrar atendimento</button>
 </form>

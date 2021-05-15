@@ -11,12 +11,11 @@ module.exports = {
         return res.json(atendimento)
     },
 
-    async cadastroAtendimento(req,res){
-        const {funcionario_id} = req.body
-
-        const { status, nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento } = req.body
+        cadastroAtendimento(req,res){
         
-        const funcionario = await Funcionario.findOne({where:{ nome_funcionario: funcionario_id}}).catch((error)=>{
+        const {funcionario_id} = req.body.funcionario
+        
+        const funcionario =  Funcionario.findOne({where:{ nome_funcionario: funcionario_id}}).catch((error)=>{
             if(error){
                 console.log("Houve um erro durante o cadastro de Atendimento" + erro)
             }
@@ -26,13 +25,22 @@ module.exports = {
             return res.status(400).json({erro: 'Funcionario não encontrado'})
         }
 
-        const atendimento = await Atendimento.create({status, nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento }).catch((erro)=>{
+        const atendimento = Atendimento.create({
+            status: req.body.status,
+            nome_cliente: req.body.nome_cliente,
+            nome_empresa: req.body.nome_empresa,
+            telefone_cliente: req.body.telefone_cliente,
+            problema_cliente: req.body.problema_cliente,
+            endereco_cliente_rua: req.body.endereco_cliente_rua,
+            endereco_cliente_numero: req.body.endereco_cliente_numero,
+            endereco_cliente_complemento: req.body.endereco_cliente_complemento
+        }).catch((erro)=>{
             if(erro){
                 console.log("Erro no cadastro de atendimento..." + erro)
             }
         })
-        await funcionario.addAtendimento(atendimento)
+         funcionario.addAtendimento(atendimento)
 
-        return res.json(atendimento)
+        return res.render('cadastroAtendimento')
     }
 }
