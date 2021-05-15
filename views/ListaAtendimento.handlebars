@@ -2,14 +2,15 @@
 
 {{#each atendimentos}}
     <p>ID: {{dataValues.id}} </p>
-    <p>Status: {{dataValues.Status}}</p>
-    <p>Nome: {{dataValues.NomeCliente}}</p>
-    <p>Empresa: {{dataValues.NomeEmpresa}}</p>
-    <p>Telefone: {{dataValues.TelefoneCliente}}</p>
-    <p>Logradouro: {{dataValues.EnderecoClienteRua}}</p>
-    <p>Número: {{dataValues.EnderecoClienteNumero}}</p>
-    <p>Complemento: {{dataValues.EnderecoClienteComplemento}}</p>
-    <p>Funcionario: {{dataValues.Funcionario}} </p>
-    
+    <p>Status: {{dataValues.status}}</p>
+    <p>Nome: {{dataValues.nome_cliente}}</p>
+    <p>Empresa: {{dataValues.nome_empresa}}</p>
+    <p>Telefone: {{dataValues.telefone_cliente}}</p>
+    <p>Logradouro: {{dataValues.endereco_cliente_rua}}</p>
+    <p>Número: {{dataValues.endereco_cliente_numero}}</p>
+    <p>Complemento: {{dataValues.endereco_cliente_complemento}}</p>
+    {{#each funcionarios}}
+    <p>Funcionario: {{dataValues.nome_funcionario}} </p>
+    {{/each}}
     <hr>
 {{/each}}

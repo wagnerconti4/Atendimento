@@ -18,56 +18,77 @@
 //Rotas
 
     //Rotas Atendimentos
-    Servidor.get('/Cadastro_Atendimento', (req, res)=>{
-        Funcionario.findAll().then((funcionarios)=>{
-            res.render('cadastroAtendimento',{funcionarios: funcionarios})
-        })
         
-    })
-    Servidor.post('/cadastro_atendimento',async(req, res)=>{
-        
-        const status = req.body.Radio
-
-        const {nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento } = req.body
-
-        const atendimento = await Atendimento.create({nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento,status }).catch((erro)=>{
-            if(erro){
-                console.log("Erro no cadastro de atendimento..." + erro)
-            }
-        })
-        const nome_funcionario = req.body.funcionarios
-        const funcionario = await Funcionario.findOne({where:{ nome_funcionario: nome_funcionario }}).catch((error)=>{
-            if(error){
-                console.log("Houve um erro durante o cadastro de Atendimento" + error)
-            }
-        })
-
-        if(!funcionario){
-            return res.status(400).json({erro: 'Funcionario não encontrado'})
-        }
-        await funcionario.addAtendimento(atendimento) 
-    })
     
+        //Rota de listagem 
+            Servidor.get('/Listagem_Atendimento',(req, res)=>{
+                Atendimento.findAll({
+                    include:{model: Funcionario, 
+                        as:'funcionarios',
+                        attributes:['nome_funcionario']
+                    }
+                    
 
-    Servidor.get('/Cadastro_Funcionario',(req, res)=>{
-        res.render('cadastroFuncionario')
-    })
+                }).then((atendimentos)=>{
+                    res.render('ListaAtendimento', {atendimentos: atendimentos})
+                })
+                
+            })
 
-    Servidor.post('/cadastro_funcionario',(req, res)=>{
 
-        Funcionario.create({
-            nome_funcionario: req.body.nome_funcionario,
-            telefone_funcionario: req.body.telefone_funcionario,
-            email_funcionario: req.body.email_funcionario
-        }).then(()=>{
-            res.send("Funcionario cadastrado com sucesso =D")
-        }).catch((erro)=>{
-            if(erro){
-                console.log("Erro no cadastro de funcionario..." + erro)
-                res.send("Houve um erro...desculpe :(")
-            }  
-        })
-    })
+
+        //Rota de cadastro
+            Servidor.get('/Cadastro_Atendimento', (req, res)=>{
+                Funcionario.findAll().then((funcionarios)=>{
+                    res.render('cadastroAtendimento',{funcionarios: funcionarios})
+                })
+                
+            })
+            Servidor.post('/cadastro_atendimento',async(req, res)=>{
+                
+                const status = req.body.Radio
+
+                const {nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento } = req.body
+
+                const atendimento = await Atendimento.create({nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento,status }).catch((erro)=>{
+                    if(erro){
+                        console.log("Erro no cadastro de atendimento..." + erro)
+                    }
+                })
+                const nome_funcionario = req.body.funcionarios
+                const funcionario = await Funcionario.findOne({where:{ nome_funcionario: nome_funcionario }}).catch((error)=>{
+                    if(error){
+                        console.log("Houve um erro durante o cadastro de Atendimento" + error)
+                    }
+                })
+                
+                res.send("Atendimento cadastrado com sucesso =D")
+                await funcionario.addAtendimento(atendimento) 
+            })
+
+
+    //Rotas Funcionários 
+
+        //Rota de cadastro
+                Servidor.get('/Cadastro_Funcionario',(req, res)=>{
+                    res.render('cadastroFuncionario')
+                })
+
+                Servidor.post('/cadastro_funcionario',(req, res)=>{
+
+                    Funcionario.create({
+                        nome_funcionario: req.body.nome_funcionario,
+                        telefone_funcionario: req.body.telefone_funcionario,
+                        email_funcionario: req.body.email_funcionario
+                    }).then(()=>{
+                        res.send("Funcionario cadastrado com sucesso =D")
+                    }).catch((erro)=>{
+                        if(erro){
+                            console.log("Erro no cadastro de funcionario..." + erro)
+                            res.send("Houve um erro...desculpe :(")
+                        }  
+                    })
+                })
 
 
 //Conexão do servidor
