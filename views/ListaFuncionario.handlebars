@@ -1,5 +1,12 @@
 <h1>Lista de funcionarios</h1>
 {{#each funcionarios}}
-    <p>Nome: {{dataValues.NomeFuncionario}}</p>
+    <a href="http://localhost:8080/Cadastro_Atendimento">
+    <li>
+   <p>Nome: {{dataValues.nome_funcionario}}</p>
+   <p>Telefone: {{dataValues.telefone_funcionario}}</p>
+   <p>Email: {{dataValues.Email_funcionario}}</p>
+   <p>Data de criação: {{dataValues.createdAt}} </p>
+   </li>
+   </a>
     <hr>
 {{/each}}

@@ -17,6 +17,11 @@
 
 //Rotas
 
+    //Rota Menu
+        Servidor.get('/Menu',(req, res)=>{
+            res.render('Menu')
+        })
+
     //Rotas Atendimentos
         
     
@@ -65,9 +70,26 @@
                 res.send("Atendimento cadastrado com sucesso =D")
                 await funcionario.addAtendimento(atendimento) 
             })
+            
+           //Rota de atualização de Atendimento
+           Servidor.get('/Atualizando_Atendimento',(req, res)=>{
+               res.render('CadastroAtendimento')
+           })
 
 
     //Rotas Funcionários 
+
+        //Rota de listagem
+
+                Servidor.get('/Listagem_Funcionario',(req, res)=>{
+                    Funcionario.findAll().then((funcionarios)=>{
+                        res.render('ListaFuncionario', {funcionarios: funcionarios})
+                    }).catch((erro)=>{
+                        if(erro){
+                            console.log("Houve um erro na listagem de funcionário" + erro)
+                        }
+                    })
+                })
 
         //Rota de cadastro
                 Servidor.get('/Cadastro_Funcionario',(req, res)=>{
