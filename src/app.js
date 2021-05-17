@@ -26,16 +26,17 @@
         
     
         //Rota de listagem 
-            Servidor.get('/Listagem_Atendimento',(req, res)=>{
-                Atendimento.findAll({
+            Servidor.all('/Listagem_Atendimento',(req, res)=>{
+                
+                 Atendimento.findAll({
                     include:{model: Funcionario, 
                         as:'funcionarios',
                         attributes:['nome_funcionario']
                     }
-                    
-
+                       
                 }).then((atendimentos)=>{
                     res.render('ListaAtendimento', {atendimentos: atendimentos})
+                    
                 })
                 
             })
@@ -72,9 +73,14 @@
             })
             
            //Rota de atualização de Atendimento
-           Servidor.get('/Atualizando_Atendimento',(req, res)=>{
-               res.render('CadastroAtendimento')
-           })
+           
+           Servidor.get('/Atualiza_Atendimento/:id', (req, res)=>{
+                    const {id} = req.params
+                    Atendimento.findAll({include:{model:Funcionario,as:'funcionarios',attributes:['nome_funcionario']},where:{id: id}}).then((atendimentos)=>{
+                        res.render('AtualizaAtendimento',{atendimentos: atendimentos})
+                    })
+                    
+               })
 
 
     //Rotas Funcionários 
