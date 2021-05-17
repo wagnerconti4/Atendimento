@@ -1,5 +1,6 @@
 {{#each atendimentos}}
-<form action="/cadastro_atendimento" method="POST">
+
+<form action="/atualiza_atendimento" method="POST">
 
 <h3>Cliente</h3>
 
@@ -32,7 +33,7 @@
 <input type="radio" id="Pendente" name="Radio" value="Pendente" >Pendente <br>
 
 <input type="radio" id="Agendado" name="Radio" value="Agendado" > Agendado <br>
-{{/each}}
+{{/each}} 
 <p>Funcionário</p>
 
 <select name="funcionarios">
@@ -40,7 +41,7 @@
     <option>{{dataValues.nome_funcionario}}</option>
     {{/each}}
 </select>
-   
+  
 <button type="submit">Cadastrar atendimento</button>
 
 </form>
