@@ -74,12 +74,25 @@
             
            //Rota de atualização de Atendimento
            
-           Servidor.get('/Atualiza_Atendimento/:id', (req, res)=>{
-                    const {id} = req.params
-                    Atendimento.findAll({include:{model:Funcionario,as:'funcionarios',attributes:['nome_funcionario']},where:{id: id}}).then((atendimentos)=>{
-                        res.render('AtualizaAtendimento',{atendimentos: atendimentos})
+           Servidor.get('/Atualiza_Atendimento/:atendimento_id', (req, res)=>{
+                    const {atendimento_id} = req.params
+                    Atendimento.findAll({where: {id: atendimento_id}}).then((atendimentos)=>{
+                         Funcionario.findAll().then((funcionarios)=>{
+                            res.format({
+                                html: function(){
+                                    res.render('AtualizaAtendimento',{atendimentos: atendimentos, funcionarios: funcionarios})
+                                }
+                            })
+                         }).catch((erro)=>{
+                             if(erro){
+                                 console.log("Houve um erro durante a puxada de dados da tabela Funcionário" + erro)
+                             }
+                         })
+                    }).catch((erro)=>{
+                        if(erro){
+                            console.log("Houve um erro durante a puxada de dados da tabela Atendimento" + erro)
+                        }
                     })
-                    
                })
 
 
