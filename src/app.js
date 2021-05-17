@@ -79,7 +79,7 @@
                     Atendimento.findAll({where: {id: atendimento_id}}).then((atendimentos)=>{
                          Funcionario.findAll().then((funcionarios)=>{
                             res.format({
-                                html: function(){
+                                'text/html': function(){
                                     res.render('AtualizaAtendimento',{atendimentos: atendimentos, funcionarios: funcionarios})
                                 }
                             })
@@ -93,6 +93,27 @@
                             console.log("Houve um erro durante a puxada de dados da tabela Atendimento" + erro)
                         }
                     })
+               })
+
+               Servidor.put('/atualiza_atendimento',async(req, res)=>{
+                
+                const status = req.body.Radio
+                
+                const {nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento } = req.body
+
+                const atendimento = await Atendimento.findOrCreate({nome_cliente: nome_cliente, nome_empresa:nome_empresa, telefone_cliente:telefone_cliente, problema_cliente:problema_cliente, endereco_cliente_rua: endereco_cliente_rua,endereco_cliente_numero:endereco_cliente_numero, endereco_cliente_complemento: endereco_cliente_complemento,status:status}, {where:{id:id}}).catch((erro)=>{
+                    if(erro){
+                        console.log("Erro no cadastro de atendimento..." + erro)
+                    }
+                })
+                const nome_funcionario = req.body.funcionarios
+                const funcionario = await Funcionario.findOne({where:{ nome_funcionario: nome_funcionario }}).catch((error)=>{
+                    if(error){
+                        console.log("Houve um erro durante o cadastro de Atendimento" + error)
+                    }
+                })
+                res.send("Atendimento atualizado com sucesso =D")
+                await funcionario.save(atendimento) 
                })
 
 
