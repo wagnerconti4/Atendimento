@@ -18,7 +18,7 @@
 //Rotas
 
     //Rota Menu
-        Servidor.get('/Menu',(req, res)=>{
+        Servidor.get('/',(req, res)=>{
             res.render('Menu')
         })
 
@@ -44,7 +44,7 @@
 
 
         //Rota de cadastro
-            Servidor.get('/Cadastro_Atendimento', (req, res)=>{
+            Servidor.get('/Cadastro_Atendimento',(req, res)=>{
                 Funcionario.findAll().then((funcionarios)=>{
                     res.render('cadastroAtendimento',{funcionarios: funcionarios})
                 })
@@ -73,48 +73,46 @@
             })
             
            //Rota de atualização de Atendimento
-           
+        
            Servidor.get('/Atualiza_Atendimento/:atendimento_id', (req, res)=>{
                     const {atendimento_id} = req.params
-                    Atendimento.findAll({where: {id: atendimento_id}}).then((atendimentos)=>{
-                         Funcionario.findAll().then((funcionarios)=>{
+                   Atendimento.findAll({include:{model: Funcionario, 
+                        as:'funcionarios',
+                        attributes:['id','nome_funcionario']}, where:{id: atendimento_id}
+                    }).then((atendimentos)=>{
+                        Funcionario.findAll({attributes:['id','nome_funcionario']}).then((funcionarios)=>{
                             res.format({
                                 'text/html': function(){
                                     res.render('AtualizaAtendimento',{atendimentos: atendimentos, funcionarios: funcionarios})
                                 }
                             })
-                         }).catch((erro)=>{
-                             if(erro){
-                                 console.log("Houve um erro durante a puxada de dados da tabela Funcionário" + erro)
-                             }
-                         })
-                    }).catch((erro)=>{
-                        if(erro){
-                            console.log("Houve um erro durante a puxada de dados da tabela Atendimento" + erro)
-                        }
+                        }).catch((erro)=>{
+                            if(erro){
+                                console.log("Ouve um erro durante a exibição do atendimento..." + erro)
+                            }
+                        })
                     })
+
                })
 
-               Servidor.put('/atualiza_atendimento',async(req, res)=>{
+               Servidor.post('/atualiza_atendimento',async(req, res)=>{
                 
                 const status = req.body.Radio
                 
-                const {nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento } = req.body
-
-                const atendimento = await Atendimento.findOrCreate({nome_cliente: nome_cliente, nome_empresa:nome_empresa, telefone_cliente:telefone_cliente, problema_cliente:problema_cliente, endereco_cliente_rua: endereco_cliente_rua,endereco_cliente_numero:endereco_cliente_numero, endereco_cliente_complemento: endereco_cliente_complemento,status:status}, {where:{id:id}}).catch((erro)=>{
+                const {id,nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento } = req.body
+               
+                   const atendimento = await Atendimento.update({nome_cliente: nome_cliente, nome_empresa:nome_empresa, telefone_cliente:telefone_cliente, problema_cliente:problema_cliente, endereco_cliente_rua: endereco_cliente_rua,endereco_cliente_numero:endereco_cliente_numero, endereco_cliente_complemento: endereco_cliente_complemento,status:status}, {where:{id:id}}).catch((erro)=>{
                     if(erro){
-                        console.log("Erro no cadastro de atendimento..." + erro)
+                        console.log("Erro durante a atualização de atendimento..." + erro)
                     }
                 })
                 const nome_funcionario = req.body.funcionarios
-                const funcionario = await Funcionario.findOne({where:{ nome_funcionario: nome_funcionario }}).catch((error)=>{
-                    if(error){
-                        console.log("Houve um erro durante o cadastro de Atendimento" + error)
-                    }
-                })
-                res.send("Atendimento atualizado com sucesso =D")
-                await funcionario.save(atendimento) 
-               })
+                   const funcionario = await Funcionario.findAll({nome_funcionario : nome_funcionario},{where:{id: id}}).catch((erro)=>{
+                        console.log("Ocorreu um erro durante de funcionário no atendimento ")
+                    })
+                    res.send('Atendimento atualizado com sucesso')
+                    await funcionario.addAtendimento(atendimento)
+            })      
 
 
     //Rotas Funcionários 
