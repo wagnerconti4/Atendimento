@@ -1,7 +1,8 @@
 <h1>Lista de atendimento</h1>
-
 {{#each atendimentos}}  
+
     <li>
+        
    <p>ID:<a href="http://localhost:8080/Atualiza_Atendimento/{{dataValues.id}}">{{dataValues.id}}</a></p>
     <p>Status: {{dataValues.status}}</p>
     <p>Nome: {{dataValues.nome_cliente}}</p>
@@ -11,13 +12,9 @@
     <p>Logradouro: {{dataValues.endereco_cliente_rua}}</p>
     <p>Número: {{dataValues.endereco_cliente_numero}}</p>
     <p>Complemento: {{dataValues.endereco_cliente_complemento}}</p>
-    <p>Funcionário: {{dataValues.funcionario_id}} </p> 
-    <hr>
-    {{/each}}
+   <p>Funcionário:  {{#each funcionario}} {{"nome_funcionario"}} {{/each}} </p>
+        
     </li> 
-  
-    
-    
 
-
-
+{{/each}}
+ 

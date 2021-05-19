@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/src/controllers/Menu.js"></script>
+     {{#css}}
+        <link rel="stylesheet" href="/src/design/main.css">
+    {{/css}}
     <title>Atendimento</title>
 </head>
 <body>
-   <a href="http://localhost:8080"><button type="menu">Home</button></a>
-    <a href="http://localhost:8080/Cadastro_Atendimento"><button type="menu">Cadastro</button></a>
-    <a href="http://localhost:8080/Listagem_Atendimento"><button type="menu">Listagem</button></a>
+    <ul>
+    <a href="http://localhost:8080" ><li>Home </li></a>
+    <a href="http://localhost:8080/Cadastro_Atendimento"><li>Cadastro </li></a>
+    <a href="http://localhost:8080/Listagem_Atendimento"><li>Listagem </li></a>
+    <a href="http://localhost:8080/Cadastro_Funcionario"><li> Cadastro funcionario</li></a>
+    <a href="http://localhost:8080/Listagem_Funcionario"><li>Listagem funcionario </li></a>
+    </ul>
     {{{body}}}
 </body>
 </html>

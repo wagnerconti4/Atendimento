@@ -27,7 +27,8 @@
     
         //Rota de listagem 
             Servidor.all('/Listagem_Atendimento',(req, res)=>{
-                Atendimento.findAll({include:{model:Funcionario,as:'funcionario', attributes:['nome_funcionario']}}).then((atendimentos)=>{ 
+                Atendimento.findAll({include:{model:Funcionario,as:'funcionario',attributes:['nome_funcionario']}}).then((atendimentos)=>{ 
+                
                     res.render('ListaAtendimento',{atendimentos: atendimentos}) 
                 }).catch((erro)=>{
                     if(erro){
@@ -36,7 +37,6 @@
                 })
                 
             })
-
 
 
         //Rota de cadastro
@@ -54,21 +54,27 @@
                 
             })
             Servidor.post('/cadastro_atendimento',async(req, res)=>{
-                const status = req.body.Radio
+           
                 const nome_funcionario = req.body.nome_funcionario
-                console.log(nome_funcionario)
+                
                 const funcionario = await Funcionario.findOne({where:{nome_funcionario: nome_funcionario},attributes:['id']})
-                console.log(funcionario)
-                const {nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento} = req.body
-                
-                
-                const atendimento = await Atendimento.create({nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento,status,funcionario_id:funcionario.id}).catch((erro)=>{
+        
+                const atendimento = await Atendimento.create({
+                    nome_cliente: req.body.nome_cliente,
+                     nome_empresa: req.body.nome_empresa,
+                      telefone_cliente: req.body.telefone_cliente,
+                       problema_cliente: req.body.problema_cliente,
+                        endereco_cliente_rua: req.body.endereco_cliente_rua,
+                        endereco_cliente_numero: req.body.endereco_cliente_numero, 
+                        endereco_cliente_complemento: req.body.endereco_cliente_complemento,
+                        status: req.body.Radio,
+                        funcionario_id:funcionario.id}).catch((erro)=>{
                     if(erro){
                         console.log("Erro no cadastro de atendimento..." + erro)
                     }
                 })
                 console.log(atendimento)
-                res.send("Atendimento cadastrado com sucesso =D")
+                res.redirect("/")
             })
             
            //Rota de atualização de Atendimento
@@ -140,7 +146,8 @@
                         telefone_funcionario: req.body.telefone_funcionario,
                         email_funcionario: req.body.email_funcionario
                     }).then(()=>{
-                        res.send("Funcionario cadastrado com sucesso =D")
+                         res.redirect("/")
+                         
                     }).catch((erro)=>{
                         if(erro){
                             console.log("Erro no cadastro de funcionario..." + erro)
