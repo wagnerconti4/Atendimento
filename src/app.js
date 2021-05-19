@@ -28,15 +28,13 @@
         //Rota de listagem 
             Servidor.all('/Listagem_Atendimento',(req, res)=>{
                 
-                 Atendimento.findAll({
-                    include:{model: Funcionario, 
-                        as:'funcionarios',
-                        attributes:['nome_funcionario']
-                    }
-                       
-                }).then((atendimentos)=>{
+                 Atendimento.findAll().then((atendimentos)=>{
                     res.render('ListaAtendimento', {atendimentos: atendimentos})
                     
+                }).catch((error)=>{
+                    if(error){
+                        console.log('Houve um erro durante a listagem de atendimento...'+ error)
+                    }
                 })
                 
             })
@@ -45,31 +43,34 @@
 
         //Rota de cadastro
             Servidor.get('/Cadastro_Atendimento',(req, res)=>{
-                Funcionario.findAll().then((funcionarios)=>{
-                    res.render('cadastroAtendimento',{funcionarios: funcionarios})
+                Funcionario.findAll({include:{
+                    model: Atendimento, 
+                    as: 'atendimento'
+                }}).then((funcionarios)=>{
+                    res.render('CadastroAtendimento',{funcionarios:funcionarios})
+                }).catch((error)=>{
+                    if(error){
+                        console.log('Ocorreu um erro...'+ error)
+                    }
                 })
                 
             })
             Servidor.post('/cadastro_atendimento',async(req, res)=>{
-                
                 const status = req.body.Radio
-
-                const {nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento } = req.body
-
-                const atendimento = await Atendimento.create({nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento,status }).catch((erro)=>{
+                const nome_funcionario = req.body.nome_funcionario
+                console.log(nome_funcionario)
+                const funcionario = await Funcionario.findOne({where:{nome_funcionario: nome_funcionario},attributes:['id']})
+                console.log(funcionario)
+                const {nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento} = req.body
+                
+                
+                const atendimento = await Atendimento.create({nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento,status,funcionario_id:funcionario.id}).catch((erro)=>{
                     if(erro){
                         console.log("Erro no cadastro de atendimento..." + erro)
                     }
                 })
-                const nome_funcionario = req.body.funcionarios
-                const funcionario = await Funcionario.findOne({where:{ nome_funcionario: nome_funcionario }}).catch((error)=>{
-                    if(error){
-                        console.log("Houve um erro durante o cadastro de Atendimento" + error)
-                    }
-                })
-                
+                console.log(atendimento)
                 res.send("Atendimento cadastrado com sucesso =D")
-                await funcionario.addAtendimento(atendimento) 
             })
             
            //Rota de atualização de Atendimento
