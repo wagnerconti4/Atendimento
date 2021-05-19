@@ -9,6 +9,15 @@ module.exports = {
             autoIncrement: true,
             allowNull: false
           },
+          funcionario_id:
+          {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {model: 'funcionarios', key: 'id'},
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
+
+          },
           status: {
             type: Sequelize.STRING
           },

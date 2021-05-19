@@ -12,7 +12,6 @@ module.exports =
             autoIncrement: true,
             allowNull: false
           },
-
           nome_funcionario:
           {
             type: Sequelize.STRING,
