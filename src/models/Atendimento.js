@@ -16,7 +16,7 @@ class Atendimento extends Model {
         })
     }
     static relacionamento(models){
-        Atendimento.belongsTo(models.Funcionario, {foreignKey: 'funcionario_id'})
+        Atendimento.belongsTo(models.Funcionario, {foreignKey: 'funcionario_id', as: 'funcionario'})
     }
 }
 

@@ -27,13 +27,11 @@
     
         //Rota de listagem 
             Servidor.all('/Listagem_Atendimento',(req, res)=>{
-                
-                 Atendimento.findAll().then((atendimentos)=>{
-                    res.render('ListaAtendimento', {atendimentos: atendimentos})
-                    
-                }).catch((error)=>{
-                    if(error){
-                        console.log('Houve um erro durante a listagem de atendimento...'+ error)
+                Atendimento.findAll({include:{model:Funcionario,as:'funcionario', attributes:['nome_funcionario']}}).then((atendimentos)=>{ 
+                    res.render('ListaAtendimento',{atendimentos: atendimentos}) 
+                }).catch((erro)=>{
+                    if(erro){
+                        console.log("Ocorreu um erro durante a listagem de atendimento" + erro)
                     }
                 })
                 
