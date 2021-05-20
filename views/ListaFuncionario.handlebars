@@ -1,20 +1,36 @@
+
     <table>
         <tr>
             <td colspan="2"><h3>Lista de funcionarios</h3></td>
         </tr>
         <tr>
+
+<h1 >Lista de funcionarios</h1>
+{{#each funcionarios}}
+    <table>
+        <tr>
+
             <th>Nome</th>
             <th>Telefone</th>
             <th>Email</th>
             <th>Data de criação</th>
         </tr>
+
         {{#each funcionarios}}
+
+
         <tr>
    <td>{{dataValues.nome_funcionario}}</td>
    <td>{{dataValues.telefone_funcionario}}</td>
    <td>{{dataValues.Email_funcionario}}</td>
    <td>{{dataValues.createdAt}} </td>
    </tr>
+
    {{/each}}
    </table>
+
+
+   </table>
+
+{{/each}}
 
