@@ -1,0 +1,178 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background: rgba(15, 15, 206, 0.199);
+}
+
+ul{
+    position: relative;
+    background: rgba(14, 14, 233, 0.486);
+    margin: 0px;
+    padding: 0px;
+}
+
+ul li{
+    display: inline-block;
+}
+
+ul li a{
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+    display: block;
+}
+
+ul li:hover{
+    background: rgba(0, 0, 255, 0.205);
+}
+
+ul ul{
+    position: absolute;
+    min-width: 200px;
+    display: none;
+    background: lightblue;
+}
+
+ul ul li{
+    display: block;
+    background: rgba(14, 14, 233, 0.486) ;
+}
+
+ul li:hover ul{
+    display: block;
+}
+
+body #formularioAtendimento{
+    padding: 10px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 30%;
+    background: rgba(113, 113, 223, 0.486);
+    border: 1px solid ;
+    box-shadow: 1px 1px 2px black;
+}
+
+body #formularioFuncionario{
+    padding: 10px;
+    margin: auto;
+    margin-top: 100px;
+    text-align: center;
+    width: 30%;
+    background: rgba(113, 113, 223, 0.486);
+    border: 1px solid ;
+    box-shadow: 1px 1px 2px black;
+}
+
+body input{
+    border-radius: 3px;
+    text-align: center;
+    margin: 2px;
+    margin-right: 30px;
+    box-shadow: 1px 1px 2px black;
+}
+
+body p{
+    margin-right: 0px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.479);
+}
+
+body form button{
+    margin: auto;
+}
+
+body #telefone{
+    margin-right: 45px;
+}
+
+body #botaoFuncionario{
+    margin: 10px;
+    margin-left: 90px ;
+    margin-bottom: 30px;
+    border-style: inset;
+    border-radius: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.507);
+}
+
+body form #TituloFuncionario{
+    margin-bottom: 30px;
+    background: rgba(14, 14, 233, 0.322);
+    height: 70px;  
+    width: 200px;
+    border: solid 1px;
+    text-align: center;
+    margin-top: 0%;  
+    text-shadow: 1px 1px 2px #333; 
+    box-shadow: 1px 1px 2px black;
+}
+
+body label{
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.507);
+    
+}
+
+body .titulo{
+    margin: auto;
+    margin-top: 10px;
+    margin-left: 40px;
+    margin-right: 30px;
+    background: rgba(14, 14, 233, 0.322);
+    height: 30px;  
+    width: 300px;
+    border: solid 1px;
+    text-align: center;
+    
+    text-shadow: 1px 1px 2px #333; 
+    box-shadow: 1px 1px 2px black;
+}
+
+body textarea{
+    width: 70%;
+    height: 50px;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.534);
+}
+
+body .imputAtendimento{
+    margin-left: 30px;
+}
+
+body #Finalizado{
+    margin-left: 10px;
+}
+
+body #botaoAtendimento{
+    margin-left: 60%;
+    margin-top: 10px;
+    border-style: inset;
+    border-radius: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.507);
+    box-shadow: 1px 1px 2px 1px black;
+}
+
+body #selecionarFuncionario{
+    margin-top: 4px;
+    width: 30%;
+    
+}
+
+body #funcionarioSelect{
+    margin-bottom: 3px;
+}
+
+body table{
+    border-collapse: collapse;
+    margin: auto;
+    width: 60%;
+}
+
+body th{
+    border: solid 1px black;
+    
+}
+
+body td{
+    width: 20%;
+    text-align: center;
+    border: solid 1px black;
+}

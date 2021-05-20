@@ -4,18 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     {{#css}}
-        <link rel="stylesheet" href="/src/design/main.css">
-    {{/css}}
     <title>Atendimento</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <ul>
-    <a href="http://localhost:8080" ><li>Home </li></a>
-    <a href="http://localhost:8080/Cadastro_Atendimento"><li>Cadastro </li></a>
-    <a href="http://localhost:8080/Listagem_Atendimento"><li>Listagem </li></a>
-    <a href="http://localhost:8080/Cadastro_Funcionario"><li> Cadastro funcionario</li></a>
-    <a href="http://localhost:8080/Listagem_Funcionario"><li>Listagem funcionario </li></a>
+    <li><a href="http://localhost:8080" >Home </a></li>
+    <li><a href="#">Cadastro</a>
+        <ul>
+             <li><a href="http://localhost:8080/Cadastro_Funcionario">Cadastro de Funcionario</a></li>
+             <li><a href="http://localhost:8080/Cadastro_Atendimento">Cadastro de Atendimento</a></li>
+        </ul>
+    </li>
+    <li><a href="#">Lista</a>
+        <ul>
+            <li><a href="http://localhost:8080/Listagem_Atendimento"> Listagem de Atendimento</a></li>
+            <li><a href="http://localhost:8080/Listagem_Funcionario">Listagem de Funcionario </a></li>
+        </ul>
+    </li>
+   
+    
     </ul>
     {{{body}}}
 </body>

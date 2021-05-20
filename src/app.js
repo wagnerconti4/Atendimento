@@ -14,6 +14,8 @@
     Servidor.use(Express.urlencoded({extended: true}))
     Servidor.use(Express.json())
     
+//Configuração CSS
+    Servidor.use('/css',Express.static('css'))
 
 //Rotas
 
@@ -41,10 +43,7 @@
 
         //Rota de cadastro
             Servidor.get('/Cadastro_Atendimento',(req, res)=>{
-                Funcionario.findAll({include:{
-                    model: Atendimento, 
-                    as: 'atendimento'
-                }}).then((funcionarios)=>{
+                Funcionario.findAll().then((funcionarios)=>{
                     res.render('CadastroAtendimento',{funcionarios:funcionarios})
                 }).catch((error)=>{
                     if(error){
@@ -57,7 +56,7 @@
            
                 const nome_funcionario = req.body.nome_funcionario
                 
-                const funcionario = await Funcionario.findOne({where:{nome_funcionario: nome_funcionario},attributes:['id']})
+                const funcionario = await Funcionario.findOne( {raw: true},{where:{nome_funcionario: nome_funcionario},attributes:['id']})
         
                 const atendimento = await Atendimento.create({
                     nome_cliente: req.body.nome_cliente,
