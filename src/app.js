@@ -51,6 +51,7 @@
                     res.render('cadastroAtendimento',{funcionarios: funcionarios})
                 })
                 
+                
             })
             Servidor.post('/cadastro_atendimento',async(req, res)=>{
                 
