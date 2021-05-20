@@ -1,10 +1,13 @@
-<form action="/cadastro_funcionario" method="POST">
-    <p>Nome</p>
-    <input type="text" name="nome_funcionario">
-    <p>Telefone</p>
-    <input type="text" name="telefone_funcionario">
-    <p>Email</p>
-    <input type="text" name="email_funcionario">
 
-    <button type="submit">Adicionar Funcionario</button>
+<form id="formularioFuncionario" action="/cadastro_funcionario" method="POST">
+<h1 id="TituloFuncionario">Cadastro de funcionario</h1>
+   
+  <label>Nome: </label><input type="text" name="nome_funcionario"><br>
+    
+  <label>Telefone: </label><input type="text" id="telefone" name="telefone_funcionario"><br>
+    
+  <label>Email: </label><input type="text" name="email_funcionario"> <br> 
+      
+    
+    <button id="botaoFuncionario" type="submit">Adicionar Funcionario</button>
 </form>

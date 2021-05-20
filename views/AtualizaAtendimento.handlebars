@@ -1,49 +1,42 @@
 {{#each atendimentos}}
+<form id="formularioAtendimento" action="/atualiza_atendimento" method="POST">
+<h3 class="titulo">Cliente</h3>
 
-<form action="/atualiza_atendimento" method="POST">
-
-<h3>Cliente</h3>
 <input type="hidden" name="id" value="{{dataValues.id}}">
 
 <p>Nome</p>
-<input type="text" name="nome_cliente" value="{{dataValues.nome_cliente}}">
+<input class="imputAtendimento" type="text" name="nome_cliente" value="{{dataValues.nome_cliente}}">
 
 <p>Empresa</p>
-<input type="text" name="nome_empresa" value="{{dataValues.nome_empresa}}">
+<input class="imputAtendimento" type="text" name="nome_empresa"  value="{{dataValues.nome_empresa}}">
 
 <p>Telefone</p>
-<input type="text" name="telefone_cliente" value="{{dataValues.telefone_cliente}}">
+<input class="imputAtendimento" type="text" name="telefone_cliente" value="{{dataValues.telefone_cliente}}">
 
 <p>Problema</p>
 <textarea name="problema_cliente" value="{{dataValues.problema_cliente}}"></textarea>
 
-<h3>Endereço</h3>
+<h3 class="titulo">Endereço</h3>
 
 <p>Endereço</p>
-<input type="text" name="endereco_cliente_rua" value="{{dataValues.endereco_cliente_rua}}">
+<input class="imputAtendimento" type="text" name="endereco_cliente_rua" value="{{dataValues.endereco_cliente_rua}}">
 
 <p>Número</p>
-<input type="text" name="endereco_cliente_numero" value="{{dataValues.endereco_cliente_numero}}">
+<input class="imputAtendimento" type="text" name="endereco_cliente_numero" value="{{dataValues.endereco_cliente_numero}}">
 
 <p>Complemento</p>
 <textarea name="endereco_cliente_complemento" value="{{dataValues.endereco_cliente_complemento}}"></textarea>
-
+{{/each}}
 <p>Status</p>
 <input type="radio" id="Finalizado" name="Radio" value="Finalizado">Finalizado <br>
 
-<input type="radio" id="Pendente" name="Radio" value="Pendente" >Pendente <br>
+<input type="radio" id="Pendente" name="Radio" value="Pendente">Pendente <br>
 
-<input type="radio" id="Agendado" name="Radio" value="Agendado" > Agendado <br>
- {{/each}}
-<p>Funcionário</p>
-<select name="funcionarios">
-    {{#each funcionarios}}
-    <option>{{dataValues.nome_funcionario}}</option>
-    {{/each}}
-</select>
- 
-
-<button type="submit">Cadastrar atendimento</button>
-
+<p id="funcionarioSelect" >Funcionário</p>
+<select id="selecionarFuncionario"  name="funcionarios">
+{{#each funcionarios}}
+   <option >{{dataValues.nome_funcionario}}</option>
+{{/each}}
+</select> <br>
+<button id="botaoAtendimento" type="submit">Cadastrar atendimento</button>
 </form>
-
