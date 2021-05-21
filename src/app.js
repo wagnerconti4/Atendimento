@@ -180,7 +180,7 @@
 
 
 //Conexão do servidor
-    Servidor.listen(8000,(erro)=>{
+    Servidor.listen(3000,(erro)=>{
         if(erro){ 
             throw erro
         }
