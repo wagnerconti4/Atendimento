@@ -6,6 +6,7 @@
     const Atendimento = require('./models/Atendimento')
     const Funcionario = require('./models/Funcionario')
     const Atendimento_Funcionario = require('./models/Atendimento_Funcionario')
+
 //Configuração do Handlebars
     Servidor.engine('handlebars',ExpressHadlebars({defaultLayout: 'main'}))
     Servidor.set('view engine', 'handlebars')
@@ -155,6 +156,26 @@
                             res.send("Houve um erro...desculpe :(")
                         }  
                     })
+                })
+        
+        //Rota de atualização
+                Servidor.get('/Atualiza_Funcionario/:id',(req, res)=>{
+                    const {id} = req.params
+                    Funcionario.findAll({where:{id : id}}).then((funcionario)=>{
+                        res.render('AtualizaFuncionario',{funcionario: funcionario})
+                    })
+                })
+
+                Servidor.post('/atualiza_funcionario', (req, res)=>{
+                    
+                    const {id, nome_funcionario, telefone_funcionario, email_funcionario} = req.body
+
+                    Funcionario.update({nome_funcionario : nome_funcionario, telefone_funcionario : telefone_funcionario, email_funcionario : email_funcionario},{where:{id : id}}).catch((error)=>{
+                        if(error){
+                            console.log("Houve um erro durante a atualização do funcionario....."+ error)
+                        }
+                    })
+                    res.redirect('/')
                 })
 
 

@@ -1,0 +1,18 @@
+  {{#each funcionario}}
+<form id="formularioFuncionario" action="/atualiza_funcionario" method="POST">
+
+<h1 id="TituloFuncionario">Cadastro de funcionario</h1>
+
+  <input type="hidden" name="id" value="{{dataValues.id}}">
+
+  <label>Nome: </label><input type="text" name="nome_funcionario" value="{{dataValues.nome_funcionario}}"><br>
+    
+  <label>Telefone: </label><input type="text" id="telefone" name="telefone_funcionario" value="{{dataValues.telefone_funcionario}}"><br>
+    
+  <label>Email: </label><input type="text" name="email_funcionario" value="{{dataValues.email_funcionario}}"> <br> 
+
+    
+    <button id="botaoFuncionario" type="submit">Adicionar Funcionario</button>
+</form>
+
+{{/each}}  
