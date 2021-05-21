@@ -160,23 +160,15 @@ body #funcionarioSelect{
     margin-bottom: 3px;
 }
 
-body table{
-    max-height: 40%;
-    min-height: 30%;
-    border-collapse: collapse;
-    margin: auto;
-    width: 60%;
-    margin-top: 50px;
-    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.453);
-}
 
 body th{
     border: solid 1px black;
-    
 }
 
 body td{
-    width: 20%;
+  
+   padding: 10px;
+    overflow: auto;
     text-align: center;
     border: solid 1px black;
 }
@@ -184,4 +176,23 @@ body td{
 body h3{
     height: 10px;
     
+}
+
+body table{
+    border-collapse: collapse;
+    margin: auto;
+    margin-top: 50px;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.453);
+}
+
+body .listaAtendimento{
+        max-width: 140px;
+        border-collapse: collapse;
+        margin: auto;
+        margin-top: 50px;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.453);
+}
+
+body .listaFuncionario{
+    width: 50%;
 }
