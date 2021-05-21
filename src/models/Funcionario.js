@@ -17,7 +17,7 @@ class Funcionario extends Model{
         )
     }
     static relacionamento(models){
-        Funcionario.hasOne(models.Atendimento, {foreignKey:'funcionario_id', as:'atendimento'})
+        Funcionario.belongsToMany(models.Atendimento,{through:'atendimentos_funcionarios', foreignKey:'funcionario_id', as: 'atendimentos'})
     }
 }
 

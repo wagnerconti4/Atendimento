@@ -161,7 +161,6 @@ body #funcionarioSelect{
 }
 
 body table{
-
     max-height: 40%;
     min-height: 30%;
     border-collapse: collapse;
@@ -169,11 +168,6 @@ body table{
     width: 60%;
     margin-top: 50px;
     box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.453);
-
-    border-collapse: collapse;
-    margin: auto;
-    width: 60%;
-
 }
 
 body th{
@@ -185,9 +179,9 @@ body td{
     width: 20%;
     text-align: center;
     border: solid 1px black;
-
 }
 
 body h3{
     height: 10px;
+    
 }

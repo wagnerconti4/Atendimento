@@ -4,7 +4,7 @@ module.exports =
 {
     up: async (queryInterface, Sequelize) => 
     {
-      await queryInterface.createTable('funcionarios', {
+      await queryInterface.createTable('atendimentos_funcionarios', {
           id: 
           {
             type: Sequelize.INTEGER,
@@ -13,21 +13,23 @@ module.exports =
             allowNull: false
           },
 
-          nome_funcionario:
+          atendimento_id:
           {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {model: 'atendimentos', key: 'id'},
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
           },
-
-          telefone_funcionario:
+         
+          funcionario_id:
           {
-            type: Sequelize.STRING,
-            allowNull: false
-          },
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {model: 'funcionarios', key: 'id'},
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE'
 
-          email_funcionario:
-          {
-            type: Sequelize.STRING
           },
 
           created_at:
@@ -47,6 +49,6 @@ module.exports =
 
       down: async (queryInterface, Sequelize) => 
       {
-       await queryInterface.dropTable('funcionarios');
+       await queryInterface.dropTable('atendimentos_funcionarios');
       }
 }

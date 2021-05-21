@@ -17,8 +17,6 @@
     //Configuração CSS
     Servidor.use('/css',Express.static('css'))
     
-//Configuração CSS
-    Servidor.use('/css',Express.static('css'))
 
 //Rotas
 
@@ -32,7 +30,6 @@
     
         //Rota de listagem 
             Servidor.all('/Listagem_Atendimento',(req, res)=>{
-
                 
                  Atendimento.findAll({
                     include:{model: Funcionario, 
@@ -43,15 +40,6 @@
                 }).then((atendimentos)=>{
                     res.render('ListaAtendimento', {atendimentos: atendimentos})
                     
-=======
-                Atendimento.findAll({include:{model:Funcionario,as:'funcionario',attributes:['nome_funcionario']}}).then((atendimentos)=>{ 
-                
-                    res.render('ListaAtendimento',{atendimentos: atendimentos}) 
-                }).catch((erro)=>{
-                    if(erro){
-                        console.log("Ocorreu um erro durante a listagem de atendimento" + erro)
-                    }
-
                 })
                 
             })
@@ -60,87 +48,32 @@
         //Rota de cadastro
             Servidor.get('/Cadastro_Atendimento',(req, res)=>{
                 Funcionario.findAll().then((funcionarios)=>{
-                    res.render('CadastroAtendimento',{funcionarios:funcionarios})
-                }).catch((error)=>{
-                    if(error){
-                        console.log('Ocorreu um erro...'+ error)
-                    }
+                    res.render('cadastroAtendimento',{funcionarios: funcionarios})
                 })
                 
                 
             })
             Servidor.post('/cadastro_atendimento',async(req, res)=>{
-           
-                const nome_funcionario = req.body.nome_funcionario
                 
-                const funcionario = await Funcionario.findOne( {raw: true},{where:{nome_funcionario: nome_funcionario},attributes:['id']})
-        
-                const atendimento = await Atendimento.create({
-                    nome_cliente: req.body.nome_cliente,
-                     nome_empresa: req.body.nome_empresa,
-                      telefone_cliente: req.body.telefone_cliente,
-                       problema_cliente: req.body.problema_cliente,
-                        endereco_cliente_rua: req.body.endereco_cliente_rua,
-                        endereco_cliente_numero: req.body.endereco_cliente_numero, 
-                        endereco_cliente_complemento: req.body.endereco_cliente_complemento,
-                        status: req.body.Radio,
-                        funcionario_id:funcionario.id}).catch((erro)=>{
+                const status = req.body.Radio
+
+                const {nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento } = req.body
+
+                const atendimento = await Atendimento.create({nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento,status }).catch((erro)=>{
                     if(erro){
                         console.log("Erro no cadastro de atendimento..." + erro)
                     }
                 })
-                console.log(atendimento)
-                res.redirect("/")
-            })
-            
-           //Rota de atualização de Atendimento
-        
-           Servidor.get('/Atualiza_Atendimento/:atendimento_id', (req, res)=>{
-                    const {atendimento_id} = req.params
-                   Atendimento.findAll({include:{model: Funcionario, 
-                        as:'funcionarios',
-                        attributes:['id','nome_funcionario']}, where:{id: atendimento_id}
-                    }).then((atendimentos)=>{
-                        Funcionario.findAll({attributes:['id','nome_funcionario']}).then((funcionarios)=>{
-                            res.format({
-                                'text/html': function(){
-                                    res.render('AtualizaAtendimento',{atendimentos: atendimentos, funcionarios: funcionarios})
-                                }
-                            })
-                        }).catch((erro)=>{
-                            if(erro){
-                                console.log("Ouve um erro durante a exibição do atendimento..." + erro)
-                            }
-                        })
-                    })
-
-               })
-
-               Servidor.post('/atualiza_atendimento',async(req, res)=>{
-                
-                const status = req.body.Radio
-                
-                const {id,nome_cliente, nome_empresa, telefone_cliente, problema_cliente, endereco_cliente_rua,endereco_cliente_numero, endereco_cliente_complemento } = req.body
-               
-                   const atendimento = await Atendimento.update({nome_cliente: nome_cliente, nome_empresa:nome_empresa, telefone_cliente:telefone_cliente, problema_cliente:problema_cliente, endereco_cliente_rua: endereco_cliente_rua,endereco_cliente_numero:endereco_cliente_numero, endereco_cliente_complemento: endereco_cliente_complemento,status:status}, {where:{id:id}}).catch((erro)=>{
-                    if(erro){
-                        console.log("Erro durante a atualização de atendimento..." + erro)
+                const nome_funcionario = req.body.funcionarios
+                const funcionario = await Funcionario.findOne({where:{ nome_funcionario: nome_funcionario }}).catch((error)=>{
+                    if(error){
+                        console.log("Houve um erro durante o cadastro de Atendimento" + error)
                     }
                 })
-
                 res.redirect("/")
                 await funcionario.addAtendimento(atendimento) 
                 
             })
-
-                const nome_funcionario = req.body.funcionarios
-                   const funcionario = await Funcionario.findAll({nome_funcionario : nome_funcionario},{where:{id: id}}).catch((erro)=>{
-                        console.log("Ocorreu um erro durante de funcionário no atendimento ")
-                    })
-                    res.send('Atendimento atualizado com sucesso')
-                    await funcionario.addAtendimento(atendimento)
-            })      
-
 
            
             
@@ -215,12 +148,7 @@
                         telefone_funcionario: req.body.telefone_funcionario,
                         email_funcionario: req.body.email_funcionario
                     }).then(()=>{
-
                         res.redirect("/")
-
-                         res.redirect("/")
-                         
-
                     }).catch((erro)=>{
                         if(erro){
                             console.log("Erro no cadastro de funcionario..." + erro)
